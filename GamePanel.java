@@ -10,8 +10,12 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
 
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -51,10 +55,21 @@ public class GamePanel extends JPanel implements Runnable {
         setBackground(new Color(120, 190, 245));
         setDoubleBuffered(true);
         setFocusable(true);
+        
+         
+        ImageIcon icon = new ImageIcon("CrossImage.png");
+        
+        Point hotSpot = new Point(0, 0); 
+        
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Cursor customCursor = toolkit.createCustomCursor(icon.getImage(), hotSpot, "CustomCursorName");
+
+       
+        this.setCursor(customCursor);
 
         addMouseListener(new MouseHandler(this));
 
-        // Keyboard shortcut P for pause, works wherever the focus is in the window.
+        
         getInputMap(WHEN_IN_FOCUSED_WINDOW)
                 .put(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0), "pause");
         getActionMap().put("pause", new AbstractAction() {
